@@ -16,6 +16,14 @@ func NewBadRequestError(message string) *RestErr {
 	}
 }
 
+func NewInternalServerError(message string) *RestErr {
+	return &RestErr{
+		Message: message,
+		Status:  http.StatusInternalServerError,
+		Error:   "internal_server_error",
+	}
+}
+
 func NewNotFound(message string) *RestErr {
 	return &RestErr{
 		Message: message,

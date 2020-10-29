@@ -13,11 +13,15 @@ type User struct {
 	DateCreated string `json:"date_created""`
 }
 
-func (user *User) Validate() *errors.RestErr {
-	user.Email = strings.TrimSpace(strings.ToLower(user.Email))
-	if user.Email == "" {
-		return errors.NewBadRequestError("invalid email address")
-	}
+func (user *User) Validate(isPartial bool) *errors.RestErr {
+	strings.TrimSpace(user.FirstName)
+	strings.TrimSpace(user.LastName)
 	
+	if !isPartial {
+		user.Email = strings.TrimSpace(strings.ToLower(user.Email))
+		if user.Email == "" {
+			return errors.NewBadRequestError("invalid email address")
+		}
+	}
 	return nil
 }
